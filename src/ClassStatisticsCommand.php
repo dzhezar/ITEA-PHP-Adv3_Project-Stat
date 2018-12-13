@@ -1,13 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dzhezar-bazar
- * Date: 13.12.18
- * Time: 18:11
+
+/*
+ * This file is part of the "PHP Project Stat" project.
+ *
+ * (c) Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App;
-
 
 use App\Author\ClassAnalyzer;
 use Symfony\Component\Console\Command\Command;
@@ -54,7 +56,7 @@ class ClassStatisticsCommand extends Command
 
         $array = $this->analyzer->analyze($class);
 
-        var_dump($array);
+        \var_dump($array);
         /*$output->writeln(
             \sprintf('Properties:
                                 Public: %d (%d static)
@@ -63,7 +65,7 @@ class ClassStatisticsCommand extends Command
                               Methods:
                                 Public: %d (%d static)
                                 Protected: %d (%d static)
-                                Private: %d (%d static)  
+                                Private: %d (%d static)
                                 ',  $array['properties']['public'],$array['properties']['public']['static'],
                 $array['properties']['protected'],$array['properties']['protected']['static'],
                 $array['properties']['private'],$array['properties']['private']['static'],

@@ -1,19 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dzhezar-bazar
- * Date: 13.12.18
- * Time: 18:13
+
+/*
+ * This file is part of the "PHP Project Stat" project.
+ *
+ * (c) Vladimir Kuprienko <vldmr.kuprienko@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace App\Author;
-
 
 use Symfony\Component\Finder\Finder;
 
 /**
  * Class ClassAnalyzer describes Analyzing logic
- * @package App\Author
  */
 final class ClassAnalyzer
 {
@@ -28,6 +29,7 @@ final class ClassAnalyzer
 
     /**
      * ClassAnalyzer constructor.
+     *
      * @param string $rootDir
      * @param string $rootNamespace
      */
@@ -39,8 +41,10 @@ final class ClassAnalyzer
 
     /**
      * Function describes analyzing process
+     *
      * @param string $class
-     * @return array|null
+     *
+     * @return null|array
      */
     public function analyze(string $class): ?array
     {
@@ -62,31 +66,32 @@ final class ClassAnalyzer
             } catch (\ReflectionException $e) {
                 continue;
             }
+
             if ($fullClassName == $class) {
-                $counterProps['public'][] = sizeof($reflection->getProperties(\ReflectionProperty::IS_PUBLIC));
-                $counterProps['public']['static'][] = sizeof($reflection->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PUBLIC));
+                $counterProps['public'][] = \count($reflection->getProperties(\ReflectionProperty::IS_PUBLIC));
+                $counterProps['public']['static'][] = \count($reflection->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PUBLIC));
 
-                $counterProps['protected'][] = sizeof($reflection->getProperties(\ReflectionProperty::IS_PROTECTED));
-                $counterProps['protected']['static'][] = sizeof($reflection->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PROTECTED));
+                $counterProps['protected'][] = \count($reflection->getProperties(\ReflectionProperty::IS_PROTECTED));
+                $counterProps['protected']['static'][] = \count($reflection->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PROTECTED));
 
-                $counterProps['private'][] = sizeof($reflection->getProperties(\ReflectionProperty::IS_PRIVATE));
-                $counterProps['private']['static'][] = sizeof($reflection->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PRIVATE));
+                $counterProps['private'][] = \count($reflection->getProperties(\ReflectionProperty::IS_PRIVATE));
+                $counterProps['private']['static'][] = \count($reflection->getProperties(\ReflectionProperty::IS_STATIC | \ReflectionProperty::IS_PRIVATE));
 
-                $counterMethods['public'][] = sizeof($reflection->getMethods(\ReflectionMethod::IS_PUBLIC));
-                $counterMethods['public']['static'][] = sizeof($reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PUBLIC));
+                $counterMethods['public'][] = \count($reflection->getMethods(\ReflectionMethod::IS_PUBLIC));
+                $counterMethods['public']['static'][] = \count($reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PUBLIC));
 
-                $counterMethods['protected'][] = sizeof($reflection->getMethods(\ReflectionMethod::IS_PROTECTED));
-                $counterMethods['protected']['static'][] = sizeof($reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PROTECTED));
+                $counterMethods['protected'][] = \count($reflection->getMethods(\ReflectionMethod::IS_PROTECTED));
+                $counterMethods['protected']['static'][] = \count($reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PROTECTED));
 
-                $counterMethods['private'][] = sizeof($reflection->getMethods(\ReflectionMethod::IS_PRIVATE));
-                $counterMethods['private']['static'][] = sizeof($reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PRIVATE));
+                $counterMethods['private'][] = \count($reflection->getMethods(\ReflectionMethod::IS_PRIVATE));
+                $counterMethods['private']['static'][] = \count($reflection->getMethods(\ReflectionMethod::IS_STATIC | \ReflectionMethod::IS_PRIVATE));
 
                 $counter = ['properties'=>$counterProps, 'methods'=>$counterMethods];
 
                 return $counter;
             }
-
         }
+
         return null;
     }
 }
