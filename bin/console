@@ -1,7 +1,9 @@
 #!/usr/bin/env php
 <?php
 
+use App\Author\ClassAnalyzer;
 use App\ClassAuthorStatisticCommand;
+use App\ClassStatisticsCommand;
 use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -12,7 +14,12 @@ $analyzer = new \App\Author\ClassAuthorAnalyzer(
         __DIR__ . '/../src',
         'App'
 );
+$analyzer1 = new ClassAnalyzer(
+      __DIR__ . '/../src',
+      'App'
+);
 $application->add(new ClassAuthorStatisticCommand($analyzer));
+$application->add(new ClassStatisticsCommand($analyzer1));
 
 $exitCode = $application->run();
 exit($exitCode);
